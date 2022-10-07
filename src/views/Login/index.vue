@@ -58,7 +58,7 @@
 </template>
 <script>
   import { loginAPI } from "@/api/index";    //导入调登录接口的函数
-  import { mapMutations } from "@/store/index";
+  // import { mapMutations } from "@/store/index";
 export default {
   name: "myLogin",
 // 数据
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
 // 把store中的mutation函数映射过来
-...mapMutations(['updataToken']),
+// ...mapMutations(['updataToken']),
 
 // 登录按钮的点击事件，先调函数校验然后调接口发送请求和表单数据，后端做出处理后返回处理结果
     submitForm(formName) {
@@ -124,7 +124,7 @@ export default {
           this.updataToken(res.token)
           this.$router.push('/layout/user');                              //跳转到首页
           this.$store.state.isNew = true;                                 //让welLogin组件上的“新消息”按钮出现
-          this.$store.state.isLogin = false;                              //让welLogin组件上的“登录”和“注册”按钮出现
+          this.$store.state.isLogin = false;                              //让welLogin组件上的“登录”和“注册”按钮消失
         } else {
           console.log("登录失败!!");
           return false;
