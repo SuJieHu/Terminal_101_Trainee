@@ -43,8 +43,7 @@ export const registerAPI = ({ Uname, Upwd, Uxname,Usex,Utel,Usite,Utype,Usrl,Uin
  * @returns 返回一个promise对象
  */
 
-export const loginAPI = ({} ) => {
-export const loginAPI = ({} ) => {
+export const loginAPI = ({Uname,Upwd, Utype} ) => {
     return request ({
         url:'',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
         method: 'POST', 

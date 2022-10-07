@@ -41,6 +41,7 @@
       </el-form-item>
 <!-- 下面是登录和重置按钮，我改变了按钮的样式 -->
       <el-form-item>
+
         <el-button     
           type="primary"
           @click="submitForm('ruleForm')"
@@ -140,6 +141,7 @@ export default {
 </script>
 
 <style scoped>
+
 .register {
   width: 400px;
   height: 450px;
