@@ -16,20 +16,20 @@ import request from "@/utils/request";   //引入自定义的axios函数
  * @param {*} Uinfo 
  * @returns 
  */
-export const registerAPI = (Uname, Upwd, Uxname,Usex,Utel,Usite,Utype,Usrl,Uinfo) => {
+export const registerAPI = (uname, upwd, uxname,usex,utel,usite,utype,usrl,uinfo) => {
     return request({
-        url: '',       //注册接口地址：以向该接口发送注册表单的数据，放入用户信息表获得返回结果           跟后端沟通！！！！！！！
+        url: '/user/register',       //注册接口地址：以向该接口发送注册表单的数据，放入用户信息表获得返回结果           跟后端沟通！！！！！！！
         method: 'POST',
         data: {
-            Uname, 
-            Upwd,
-            Uxname,
-            Usex,
-            Utel,
-            Usite,
-            Utype,
-            Usrl,
-            Uinfo
+            uname, 
+            upwd,
+            uxname,
+            usex,
+            utel,
+            usite,
+            utype,
+            usrl,
+            uinfo
         }
     })
 }
@@ -42,7 +42,7 @@ export const registerAPI = (Uname, Upwd, Uxname,Usex,Utel,Usite,Utype,Usrl,Uinfo
  * @returns 返回一个promise对象
  */
 
-export const loginAPI = ( Uname, Upwd, Utype) => {
+export const loginAPI = ( {Uname, Upwd, Utype}) => {
     return request ({
         url:'',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
         method: 'POST', 

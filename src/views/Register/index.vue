@@ -10,17 +10,17 @@
       class="demo-ruleForm"
     >
 <!-- 账号 -->
-      <el-form-item label="账号" prop="Uname">
+      <el-form-item label="账号" prop="uname">
         <el-input
-          v-model="ruleForm.Uname"
+          v-model="ruleForm.uname"
           autocomplete="off" required = "true"
         ></el-input>
       </el-form-item>
 <!-- 密码 -->
-      <el-form-item label="密码" prop="Upwd">
+      <el-form-item label="密码" prop="upwd">
         <el-input
           type="password"
-          v-model="ruleForm.Upwd"
+          v-model="ruleForm.upwd"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -89,7 +89,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.Upwd) {
+      } else if (value !== this.ruleForm.upwd) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -97,22 +97,22 @@ export default {
     };
     return {
       ruleForm: {
-        Uname:"",
-        Upwd: "",
-        Uxname:"胡图图",
-        Usex:"男",
-        Utel:"13412345678",
-        Usite:"翻斗大街翻斗花园二号楼1001室",
-        Utype:"0",
-        Usrl:"https://www.qqkw.com/d/file/p/2022/04-18/c17d85a851e9444d7cf11a2fe491cdcb.jpg",
-        Uinfo:"信息介绍",
+        uname:"",
+        upwd: "",
+        uxname:"胡图图",
+        usex:"男",
+        utel:"13412345678",
+        usite:"翻斗大街翻斗花园二号楼1001室",
+        utype:"0",
+        usrl:"https://www.qqkw.com/d/file/p/2022/04-18/c17d85a851e9444d7cf11a2fe491cdcb.jpg",
+        uinfo:"信息介绍",
         checkPass: "",
 
       },
       rules: {
-        Upwd: [{ validator: validatePass, trigger: "blur" }],
+        upwd: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        Uname: [{ validator: checkUname, trigger: "blur" }],
+        uname: [{ validator: checkUname, trigger: "blur" }],
       },
     };
   },
@@ -126,7 +126,7 @@ export default {
           console.log(this.ruleForm);                //打印出从表单提交来的需要向后端传递的数据，用于验证编写是否成功，后续可删除这段！！！！！！！
           const { data:res } =await registerAPI(this.ruleForm);    //提交表单后获取到表单数据对象ruleForm然后使用axios传递给接口函数，得到一个返回值，是promise对象
           console.log(res);                                         //打印后端返回结果,用于验证编写是否成功，后续可删除这段！！！！！！！
-          if(res.code !== 0) return this.$message.error(res.message)     ////后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
+          if(res.code !== 200) return this.$message.error(res.message)     ////后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
           this.$message.success(res.message)                            ////后端返回成功结果，提示后端返回的错误message或者也可以自己设置提示
           this.$router.push('/layout/login')                            
         } else {
