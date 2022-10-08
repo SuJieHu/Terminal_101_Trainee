@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <div style="position: absolute; left: 500px; top: 130px;">
+    <div style="position: absolute; left: 555px; top: 130px;">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-tabs class="header">
           <span slot="label" class="head">用户</span>
@@ -28,7 +28,6 @@
 
     </div>
 
-
   </div>
 
 
@@ -48,17 +47,6 @@ export default {
       } else {
         callback();
       }
-      // setTimeout(() => {
-      //   if (!Number.isInteger(value)) {
-      //     callback(new Error("请输入数字值"));
-      //   } else {
-      //     if (value < 18) {
-      //       callback(new Error("必须年满18岁"));
-      //     } else {
-      //       callback();
-      //     }
-      //   }
-      // }, 1000);
     };
     //，校验函数，限制输入不能为空
     var validatePass = (rule, value, callback) => {
@@ -104,7 +92,9 @@ export default {
             this.$store.state.isNew = true; //让welLogin组件上的“新消息”按钮出现
             this.$store.state.isLogin = false;
           }else{
-            this.$router.push('/layout/admin')
+            this.$router.push('/layout/admin');
+            this.$store.state.isNew = true; //让welLogin组件上的“新消息”按钮出现
+            this.$store.state.isLogin = false;
           }
           //让welLogin组件上的“登录”和“注册”按钮消失
         } else {
