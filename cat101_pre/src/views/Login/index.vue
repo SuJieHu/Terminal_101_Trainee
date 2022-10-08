@@ -27,6 +27,8 @@
       </el-form>
 
     </div>
+
+
   </div>
 
 
@@ -47,7 +49,9 @@ export default {
         callback();
       }
     };
+
     //，校验函数，限制输入不能为空
+
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("请输入密码"));
@@ -148,8 +152,6 @@ export default {
   color: black;
 }
 
-
-
 .header {
   font-size: large;
   font-weight: lighter;
@@ -247,3 +249,4 @@ input {
 }
 </style>
   
+
