@@ -9,18 +9,18 @@
       class="demo-ruleForm"
     >
 <!-- 账号输入框 -->
-      <el-form-item label="账号" prop="Uname">
+      <el-form-item label="账号" prop="uname">
         <el-input
-          v-model="ruleForm.Uname"
+          v-model="ruleForm.uname"
           autocomplete="off"
           required="true"
         ></el-input>
       </el-form-item>
 <!-- 密码输入框 -->
-      <el-form-item label="密码" prop="Upwd">
+      <el-form-item label="密码" prop="upwd">
         <el-input
           type="password"
-          v-model="ruleForm.Upwd"
+          v-model="ruleForm.upwd"
           autocomplete="off"
         ></el-input>
       </el-form-item>
@@ -33,15 +33,14 @@
       > -->
 
 <!-- 选择后台登录还是前台登录 设置选中普通用户时传值为 0，管理员为 1-->
-      <el-form-item label="登录角色" prop="Utype">
-        <el-radio-group v-model="ruleForm.Utype" >
+      <el-form-item label="登录角色" prop="utype">
+        <el-radio-group v-model="ruleForm.utype" >
           <el-radio label="0" >普通用户</el-radio>
           <el-radio label="1" >管理员</el-radio>
         </el-radio-group>
       </el-form-item>
 <!-- 下面是登录和重置按钮，我改变了按钮的样式 -->
       <el-form-item>
-
         <el-button     
           type="primary"
           @click="submitForm('ruleForm')"
@@ -65,7 +64,7 @@ export default {
 // 数据
   data() {
 //，校验函数，限制输入不能为空
-    var checkUname = (rule, value, callback) => {
+    var checkuname = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("账号不能为空"));
       } else {
@@ -95,15 +94,15 @@ export default {
 // 具体数据
     return {
       ruleForm: {
-        Uname: "",
-        Upwd: "",
-        Utype: "",
+        uname: "",
+        upwd: "",
+        utype: "",
       },
 // 校验规则对象
       rules: {
-        Upwd: [{ validator: validatePass, trigger: "blur" }],
-        Uname: [{ validator: checkUname, trigger: "blur" }],
-        Utype: [
+        upwd: [{ validator: validatePass, trigger: "blur" }],
+        uname: [{ validator: checkuname, trigger: "blur" }],
+        utype: [
             { required: true, message: '请选择登录角色', trigger: 'change' }
           ],
       },
@@ -117,7 +116,8 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          console.log(this.ruleForm);      //打印出从表单提交来的需要向后端传递的数据，用于验证编写是否成功，后续可删除这段！！！！！！！
+          console.log(this.ruleForm);
+          console.log(JSON.stringify(this.ruleForm));      //打印出从表单提交来的需要向后端传递的数据，用于验证编写是否成功，后续可删除这段！！！！！！！
           const { data:res } = await loginAPI(this.ruleForm);
           console.log(res);                //打印后端返回结果,用于验证编写是否成功，后续可删除这段！！！！！！！
           if (res.code !=0) return this.$message.error(res.message)        //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
@@ -141,7 +141,6 @@ export default {
 </script>
 
 <style scoped>
-
 .register {
   width: 400px;
   height: 450px;
