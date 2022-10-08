@@ -14,14 +14,14 @@
 
       <!--TODO：以下代码需要进行修改-->
       <!--登录注册按钮  注意：登录后不显示 v-if="false"-->
-      <div class="login">
+      <div class="login" v-if="$store.state.isLogin">
         <el-button size="small" round @click="$router.push('/layout/register')" style="margin-left: 30px">注册
         </el-button>
         <el-button size="small" round @click="$router.push('/layout/login')">登录
         </el-button>
       </div>
       <!-- 新消息显示按钮，可跳转到另一个消息页面   注意：登录前不显示 v-if="false"-->
-      <div style="float: right; width: 84px; height: 40px">
+      <div style="float: right; width: 84px; height: 40px" v-if =$store.state.isNew>
         <el-badge :value="2" class="item" type="warning">
           <el-button size="large">新消息</el-button>
         </el-badge>
