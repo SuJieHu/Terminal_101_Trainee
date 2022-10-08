@@ -4,9 +4,7 @@
         <el-menu
       default-active="1"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      router="true">
+      router>
       <!-- 点击导航栏跳转到首页 -->
       <el-menu-item index="/layout/user" default-active>
         <template slot="title">
