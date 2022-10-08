@@ -63,6 +63,7 @@ export default {
   height: 100px;
   margin-left: 40px;
   margin-top: 10px;
+  cursor: pointer;
 }
 .logo img {
   height: 100%;

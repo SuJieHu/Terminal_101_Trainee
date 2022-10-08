@@ -27,7 +27,7 @@ public class AdoptController {
     private IAdoptService adoptService;
 
     // 新增或者更新
-    @PostMapping
+    @PostMapping("/save")
     public Result save(@RequestBody Adopt adopt) {
         adoptService.saveOrUpdate(adopt);
         return Result.success();
