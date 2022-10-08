@@ -1,34 +1,26 @@
 <template>
   <div>
-    register.vue
-    <el-form :model="ruleForm"
-      status-icon
-      :rules="rules"
-      ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="密码" prop="pass">
-        <el-input
-          type="password"
-          v-model="ruleForm.pass"
-          autocomplete="off"
-        ></el-input>
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="用户账号" prop="uname" name="uname">
+        <el-input type="text" v-model="ruleForm.uname" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="pass" name="password">
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input
-          type="password"
-          v-model="ruleForm.checkPass"
-          autocomplete="off"
-        ></el-input>
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="年龄" prop="age">
-        <el-input v-model.number="ruleForm.age"></el-input>
+      <el-form-item label="姓名" prop="name" name="uxname">
+        <el-input></el-input>
+      </el-form-item>
+      <el-form-item label="家庭住址" prop="adress" name="address">
+        <el-input></el-input>
+      </el-form-item>
+      <el-form-item label="联系方式" prop="comm" name="tel">
+        <el-input></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >提交</el-button
-        >
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -40,25 +32,19 @@
 export default {
   name: 'myRegister',
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("年龄不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入密码"));
+      } else {
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass3 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入账号"));
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -80,11 +66,12 @@ export default {
         pass: "",
         checkPass: "",
         age: "",
+        uname: "",
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        age: [{ validator: checkAge, trigger: "blur" }],
+        uname: [{ validator: validatePass3, trigger: "blur" }],
       },
     };
   },
@@ -106,5 +93,37 @@ export default {
 };
 </script>
 
-<!-- <style lang="less" scoped></style> -->
-<style scoped></style>
+</style> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style scoped>
