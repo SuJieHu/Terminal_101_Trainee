@@ -4,7 +4,7 @@
       <div v-for="i in catsALL" :key="i.cid">
         <el-col :span="5">
           <div class="grid-content">
-            <el-image :src="src" @click="turnInto(i.cid)"></el-image>
+            <el-image :src=(i.curl) @click="turnInto(i.cid)"></el-image>
             <div class="title">{{ i.cname }}</div>
             <div class="color">{{ i.ccolor }}</div>
             <div class="content">{{ i.cinfo }}</div>
@@ -22,7 +22,6 @@ export default {
   name: "myUser",
   data() {
     return {
-      src: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
       catNum: 0,
       catsALL: [],
     };
