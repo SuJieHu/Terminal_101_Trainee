@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-button type="text" @click="dialogFormVisible = true"
-      >点击新增猫数据</el-button
+    <el-button type="warning" @click="dialogFormVisible = true;"
+      class="add">点击新增猫数据</el-button
     >
 
     <el-dialog title="新增猫数据" :visible.sync="dialogFormVisible">
@@ -68,6 +68,7 @@ export default {
       },
       formLabelWidth: "120px",
       json :"",
+      isDisabled:false,
     };
   },
   methods: {
@@ -94,10 +95,16 @@ export default {
 
     submitCat: async function (){
       this.json = JSON.stringify(this.form),
-       { data:res } = await addcatAPI(this.json);
-      console.log(res.data);
-
+      await addcatAPI(this.json);
+      // console.log(res.data);
+      this.$message.success("猫咪添加成功！！");
+      // this.isDisabled=true;
     }
   },
 };
 </script>
+<style>
+.add{
+  margin: 50px;
+}
+</style>
