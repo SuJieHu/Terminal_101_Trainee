@@ -52,7 +52,7 @@ export const loginAPI = (json) => {
 
     return request ({
         url:'/user/login',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
-        method: 'POST', 
+        method: 'POST',
         data: json,
     })
 }
@@ -91,7 +91,7 @@ export const addcatAPI =(json) => {
  * @param {*} ainfo
  * @returns 返回一个promise对象
  */
-
+//添加申请
 export const saveAPI = (json) => {
     return request({
         url: '/adopt/save',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
@@ -99,7 +99,7 @@ export const saveAPI = (json) => {
         data: json
     })
 }
-
+//更新猫咪信息
 export const updateCatAPI = (json) => {
     return request({
         url: '/cat/save',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
@@ -107,21 +107,21 @@ export const updateCatAPI = (json) => {
         data: json
     })
 }
-
+//查找所有猫猫
 export const searchAPI = () => {
     return request({
         url: '/cat',     //登录接口地址：以向该接口发送登录表单的数据，与用户信息表比较然后返回结果      跟后端沟通！！！！！！！
         method: 'GET',
     })
 }
-
-export const catInfoAPI = (id) => {
+//查找某只猫猫信息
+export const catInfoAPI = (cid) => {
     return request({
-        url: '/cat/'+id,
+        url: '/cat/'+cid,
         method: 'GET',
     })
 }
-
+//用户收藏
 export const starAPI = (json) => {
     return request({
         url: '/gather/save',
@@ -129,27 +129,47 @@ export const starAPI = (json) => {
         data: json
     })
 }
-
-export const showStarAPI = (id) => {
+//显示用户的所有收藏信息
+export const showStarAPI = (uid) => {
     return request({
-        url: '/gather/'+id,
+        url: '/gather/'+uid,
         method: 'GET'
     })
 }
-
+//后台显示所有领养信息
 export const adoptBackAPI = () => {
     return request({
         url: '/adopt',
         method: 'GET'
     })
 }
-
-export const adoptDeleteAPI = (id) => {
+//用户的所有领养猫咪
+export const mineAPI = (uid) => {
     return request({
-        url: '/adopt/'+id+'/delete',
+        url: '/adopt/'+uid,
+        method: 'GET'
+    })
+}
+//用户的所有申请信息
+export const applyInfoAPI = (uid) => {
+    return request({
+        url: '/adopt/detail/'+uid,
         method: 'GET'
     })
 }
 
-
+//删除申请
+export const deleteApplyAPI = (aid) => {
+    return request({
+        url: '/adopt/'+aid,
+        method: 'DELETE'
+    })
+}
+//删除猫咪
+export const deleteCatAPI = (cid) => {
+    return request({
+        url: '/cat/'+cid,
+        method: 'DELETE'
+    })
+}
 
