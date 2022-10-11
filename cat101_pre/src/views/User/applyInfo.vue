@@ -16,7 +16,7 @@
         <div class="detail">
           <div v-if="apply.cisadopt==0" class="no">审核不通过~</div>
           <div v-else-if="apply.cisadopt==1" class="wait">审核中</div>
-          <div v-else-if="i.cisadopt==2" class="yes">审核通过</div>
+          <div v-else-if="apply.cisadopt==2" class="yes">审核通过</div>
         </div>
       </div>
       <div class="btn">
