@@ -172,3 +172,11 @@ export const deleteCatAPI = (cid) => {
         method: 'DELETE'
     })
 }
+//修改用户个人信息
+export const updateSelfAPI=(json)=>{
+    return request({
+        url:"/user/save",
+        method:"post",
+        data:json
+    })
+}

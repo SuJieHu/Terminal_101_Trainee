@@ -29,8 +29,8 @@
         </el-badge>
       </div>
       <!-- 用户头像图标 -->
-      <div style="float: right; margin-right: 30px; margin-top: -10px">
-        <el-avatar icon="el-icon-user-solid" :size="50"></el-avatar>
+      <div style="float: right; margin-right: 30px; margin-top: -10px" @click="turnIntoUser">
+        <el-avatar icon="el-icon-user-solid" :size="50" style="cursor: pointer"></el-avatar>
       </div>
     </div>
   </div>
@@ -49,9 +49,16 @@ export default {
   },
   methods: {
     quit(){
+      localStorage.removeItem("user");
+      localStorage.removeItem("cat");
+      localStorage.removeItem("cats");
+      localStorage.removeItem("apply");
       this.$router.push('/layout/login');
       this.$store.state.isNew = false;
       this.$store.state.isLogin = true;
+    },
+    turnIntoUser(){
+      this.$router.push('/layout/self');
     }
   }
 };
