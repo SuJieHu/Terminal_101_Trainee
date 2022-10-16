@@ -23,6 +23,7 @@ import {catInfoAPI, searchAPI} from "@/api";
 
 export default {
   name: "myUser",
+  inject: ["reload"],
   data() {
     return {
       catsALL: [],
@@ -30,6 +31,7 @@ export default {
   },
   methods: {
     indexs: async function () {
+      // this.reload();
       const {data: res} = await searchAPI();
       if (res.code === '200') {
         this.catsALL = res.data;
@@ -38,7 +40,7 @@ export default {
         // console.log(this.catsALL[0].cname);
 
       } else {
-        this.$message.error(res.msg) //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
+        this.$message.error("无token，请登录！") //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
       }
     },
     async turnInto(cid) {
