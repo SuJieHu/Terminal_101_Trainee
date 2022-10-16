@@ -32,6 +32,7 @@ export default {
       if (res.code === '200') {
         this.catNum = res.data.length;
         this.catsALL = res.data;
+        localStorage.setItem('allCat',JSON.stringify(res.data));
         // console.log(this.catsALL[0].curl);
         // console.log(this.catsALL[0].cname);
       } else {
