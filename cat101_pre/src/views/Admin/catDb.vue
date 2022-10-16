@@ -1,19 +1,34 @@
 <template>
   <el-main>
     <el-table
-        :data="
+      :data="
         tableData.filter(
           (data) =>
             !search || data.name.toLowerCase().includes(search.toLowerCase())
         )
       "
-        style="width: 100%"
+      style="width: 100%"
     >
       <!-- 表头 -->
       <el-table-column label="编号" prop="cid"></el-table-column>
       <el-table-column label="昵称" prop="cname"></el-table-column>
       <el-table-column label="花色" prop="ccolor"></el-table-column>
-      <el-table-column label="图片" prop="curl"></el-table-column>
+      <el-table-column
+        label="图片"
+        prop="curl"
+        align="center"
+        width="150px"
+        padding="0px"
+        :show-overflow-tooltip="true"
+      >
+        <template slot-scope="scope">
+          <img
+            :src="tableData[scope.$index].curl"
+            alt=""
+            style="width: 36px; height: 36px"
+          />
+        </template>
+      </el-table-column>
       <el-table-column label="描述" prop="cinfo"></el-table-column>
       <el-table-column label="领养状态" prop="cisadopt"></el-table-column>
 
@@ -26,11 +41,8 @@
         </template>
         <!-- 删除和编辑按钮 -->
         <template slot-scope="scope">
-          <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.row)"
-          >删除
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
+            >删除
           </el-button>
         </template>
       </el-table-column>
@@ -39,11 +51,11 @@
 </template>
 
 <script>
-import {catAPI, deleteCatAPI} from "@/api";
+import { catAPI, deleteCatAPI } from "@/api";
 //用于向后端交互
 export default {
   name: "myCatdb",
-  inject: ['reload'],
+  inject: ["reload"],
   data() {
     return {
       tableData: [], //catList
@@ -55,57 +67,30 @@ export default {
   },
   methods: {
     getCat: async function () {
-      const {data: res} = await catAPI();
+      const { data: res } = await catAPI();
       this.tableData = res.data;
-      // console.log(res.data);
+      for (let i = 0;i <= this.tableData.length;i++){
+          if (this.tableData[i].cisadopt == 0) {
+          this.tableData[i].cisadopt = "待领养";
+        } else if (this.tableData[i].cisadopt == 1) {
+          this.tableData[i].cisadopt = "有人申请中";
+        } else {
+          this.tableData[i].cisadopt = "已被领养";
+        }
+        }
+      console.log(res.data);
     },
     async handleDelete(cat) {
-      const {data: res} = await deleteCatAPI(cat.cid);
-      if (res.code === '200') {
+      const { data: res } = await deleteCatAPI(cat.cid);
+      if (res.code === "200") {
         this.$message.success("删除猫咪成功！");
         this.reload();
       }
-    }
-    // addCat(catForm) {},
-    // handleEdit(index, row) {
-    //       console.log(index, row);
-    //     },
-    //     handleDelete(index, row) {
-    //       console.log(index, row);
-    //     }
-    // handleEdit(index, row) {
-    //     this.$confirm("你正在操作流浪猫数据库，将永久删除次条流浪猫的信息，是否继续操作？",
-    //     "警告",
-    //     {confirmButtonText:"继续",
-    //     cancelButtonText:"取消",
-    //     type: "warning"
-    //     }).then(() => {
-    //        const data = {cid:cid};      //我猜测这里要和后端数据库的字段名称相同
-    //       axios
-    //       .post("/cat",data)            //我猜测这里是要写后端给的接口地址
-    //       .then(response =>{
-    //         this.fetchdata();          // 删除数据后重新获取数据
-    //       })
-    //       .catch(() => {
-    //         this.$message({
-    //           type: "warning",
-    //           message: "请求失败，请检查网络设置"
-    //         })
-    //       });
-    //     }).catch(() =>{
-    //      this.message({
-    //         type: "info",
-    //         message:"已取消删除"
-    //      })
-
-    //     })
-
-    //     console.log(index, row);
-    //   },
+    },
   },
   activated() {
     this.getCat();
-  }
+  },
 };
 </script>
 <style>
