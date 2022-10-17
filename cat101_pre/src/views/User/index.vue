@@ -5,9 +5,12 @@
         <el-col :span="5">
           <div class="grid-content">
             <el-image :src=(i.curl) @click="turnInto(i.cid)"></el-image>
-                        <div class="title">{{ i.cname }}</div>
-                        <div class="status">{{ i.ccolor }}</div>
-                        <div class="content">{{ i.cinfo }}</div>
+            <div v-if="i.cisadopt==0" class="status yes">待领养</div>
+            <div v-else-if="i.cisadopt==1" class="status wait">有人申请中~</div>
+            <div v-else-if="i.cisadopt==2" class="status no">已被领养</div>
+            <div class="title">{{ i.cname }}</div>
+            <div class="color">{{ i.ccolor }}</div>
+            <div class="content">{{ i.cinfo }}</div>
           </div>
         </el-col>
       </div>
@@ -20,35 +23,37 @@ import {catInfoAPI, searchAPI} from "@/api";
 
 export default {
   name: "myUser",
+  inject: ["reload"],
   data() {
     return {
-      catNum: 0,
       catsALL: [],
     };
   },
   methods: {
     indexs: async function () {
+      // this.reload();
       const {data: res} = await searchAPI();
       if (res.code === '200') {
-        this.catNum = res.data.length;
         this.catsALL = res.data;
+        // localStorage.setItem('allCat',JSON.stringify(res.data));
         // console.log(this.catsALL[0].curl);
         // console.log(this.catsALL[0].cname);
+
       } else {
-        this.$message.error(res.msg) //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
+        this.$message.error("无token，请登录！") //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
       }
     },
-    async turnInto(id){
-      const {data: res} = await catInfoAPI(id);
+    async turnInto(cid) {
+      const {data: res} = await catInfoAPI(cid);
       if (res.code === '200') {
-        localStorage.setItem('cat',JSON.stringify(res.data));
+        localStorage.setItem('cat', JSON.stringify(res.data));
         this.$router.push('/layout/info');
       } else {
         this.$message.error(res.msg) //后端返回失败结果，提示后端返回的错误message或者也可以自己设置提示
       }
     }
   },
-  created:async function(i) {
+  created: async function (i) {
     //自动加载indexs方法
     this.indexs();
   }
@@ -63,6 +68,7 @@ export default {
 }
 
 .el-col {
+  position: relative;
   cursor: pointer;
   margin: 40px 0 0 40px;
   border-bottom: 1px #b6b6b6 solid;
@@ -105,7 +111,7 @@ export default {
   border-bottom: 1px #b6b6b6 solid;
 }
 
-.status {
+.color {
   font-size: 18px;
   margin-bottom: 10px;
   text-align: center;
@@ -122,5 +128,33 @@ export default {
 
 .el-image {
   border-radius: 8%;
+}
+
+.status {
+  position: absolute;
+  top: -10px;
+  left: -2px;
+  font-size: 12px;
+  border-radius: 10%;
+  color: #FFFFFF;
+  padding: 5px;
+}
+
+.no {
+  background-color: darkred;
+  border: 1px darkred solid;
+  font-weight: bold;
+}
+
+.yes {
+  background-color: darkgreen;
+  border: 1px darkgreen solid;
+  font-weight: bold;
+}
+
+.wait {
+  background-color: #ff8800;
+  border: 1px #ff8800 solid;
+  font-weight: bold;
 }
 </style>

@@ -87,13 +87,17 @@ export default {
           this.$message.success("登录成功"); //后端返回成功结果，提示后端返回的成功message或者也可以自己设置提示
           // this.updataToken(res.token)
           localStorage.setItem("user", JSON.stringify(res.data)); // 存储用户信息到浏览器
+
+          this.$store.commit('cUser')  //登录成功重新get user
+          console.log(this.$store.state.user);
+
           if (res.data.utype === 0) {
             this.$router.push("/layout/user"); //跳转到首页
-            this.$store.state.isNew = true; //让welLogin组件上的“新消息”按钮出现
+            this.$store.state.isNew = true; //让welLogin组件上的“退出”按钮出现
             this.$store.state.isLogin = false;
           }else{
             this.$router.push('/layout/admin');
-            this.$store.state.isNew = true; //让welLogin组件上的“新消息”按钮出现
+            this.$store.state.isNew = true; //让welLogin组件上的“退出”按钮出现
             this.$store.state.isLogin = false;
           }
           //让welLogin组件上的“登录”和“注册”按钮消失
@@ -132,16 +136,24 @@ export default {
 <!-- < !-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .register {
-  width: 1672px;
-  height: 535px;
+  /*width: 1672px;*/
+  height: 600px;
   margin: 0 auto;
-  padding-top: 140px;
+  /*padding-top: 140px;*/
   position: relative;
   background-color: #e7cc9e;
   background-size:cover;
   /* /contain  */
-  background-image: url(@/assets/img/img.png);
+  background-image: url(@/assets/img/bg.png);
+  background-repeat: no-repeat;
 }
+/*.register::before{*/
+/*  content: "";*/
+/*  position: absolute; !* 一定要用绝对定位 *!*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  backdrop-filter: blur(3px); !* 模糊半径 *!*/
+/*}*/
 .el-row {
   background-color: #e7cc9e;
 }
@@ -168,7 +180,7 @@ export default {
   width: 380px;
   height: 250px;
   background-color: #dfd6b9;
-  border-radius: 50px;
+  border-radius: 40px;
   position: absolute;
   top: 150px;
   left: 50%;
@@ -182,8 +194,8 @@ export default {
   height: 200px;
   width: 370px;
   position: relative;
-  right: 24px;
-  top: 20px;
+  right: 28px;
+  top: 35px;
 }
 
 
